@@ -1,116 +1,151 @@
-🔗 Client-Side URL Shortener
-A lightweight, fully client-side URL shortening application built with React, TypeScript, and Vite, styled using Material UI. This app supports customized shortcodes, link expiration, detailed click tracking, and a clean responsive UI—all backed by localStorage for persistence.
+# 🔗 URL Shortener
 
-💡 Designed for performance, usability, and mobile-friendliness without requiring a backend.
+A modern, responsive, and fully client-side **URL Shortener** application built with **React**, **TypeScript**, **Vite**, and styled using **Material UI**. This project allows users to generate short links with optional custom codes and expiration durations, and also provides in-depth analytics for each shortened URL — all handled seamlessly within the browser using `localStorage`.
 
-🚀 Features Overview
-Batch Shortening – Shorten up to 5 URLs simultaneously.
+---
 
-Custom Shortcodes – Optionally define your own alphanumeric shortcode (4–10 characters).
+## 🚀 Features
 
-Expiry Support – Set how long each link stays valid (default: 30 minutes).
+- **Batch URL Shortening**: Shorten up to 5 URLs at the same time.
+- **Custom Shortcodes**:
+  - Define your own alphanumeric shortcode (4–10 characters).
+  - Automatically generates one if not specified.
+- **Expiration Control**: Set optional validity (in minutes). Defaults to **30 minutes**.
+- **In-Browser Redirection**: Utilizes **React Router** for fast, client-side redirects.
+- **Analytics Dashboard**:
+  - Track total clicks for each link.
+  - View timestamp, referrer, and a mock geolocation for each click.
+- **Responsive UI**: Optimized for desktops, tablets, and mobile devices using **Material UI**.
+- **Robust Validation & Error Handling**: Handles invalid URLs, shortcode collisions, and expired links gracefully.
+- **Custom Logging Middleware**:
+  - Logs major user interactions and app events.
+  - Sends logs to a remote logging service using **Axios**.
 
-Analytics Dashboard – View click counts, referrer data, and simulated location insights.
+---
 
-Instant Redirection – Short links redirect client-side via React Router.
+## 📸 Responsive Screenshots
 
-Error Feedback – Smart UI alerts for invalid inputs, duplicates, and expired links.
+### 🔧 URL Shortener Page
 
-Event Logging – Integrated logging middleware that reports actions to a mock remote server.
+| Desktop                                                                 | Mobile                                                                  |
+|-------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| ![](./screenshots/shortener-page-desktop.png)                          | ![](./screenshots/shortener-page-mobile.png)                           |
 
-Responsive UI – Seamlessly works across mobile and desktop devices.
+### 📊 Analytics Page
 
-🖥️ UI Responsiveness Preview
-📄 Shorten URLs Page
-💻 Desktop View	📱 Mobile View
-	
+| Desktop                                                                 | Mobile                                                                  |
+|-------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| ![](./screenshots/stats-page-desktop.png)                              | ![](./screenshots/stats-page-mobile.png)                               |
+| _Full table layout_                                                    | _Horizontal scroll enabled for accessibility_                          |
 
-📊 Statistics & Analytics Page
-💻 Desktop View	📱 Mobile View
-	
-Full-width layout with detailed columns	Swipe-friendly horizontal scrolling on smaller devices
+---
 
-🧱 Tech Stack
-Tool	Purpose
-React + Vite	UI framework + build tooling
-TypeScript	Static typing for scalability
-Material UI	UI components & styling
-React Router	Routing & redirection
-Axios	Logging API calls
-nanoid	Short, URL-safe ID generation
-date-fns	Date/time formatting utilities
-localStorage	Data persistence (no backend)
+## 🛠 Tech Stack
 
-📁 Project Structure
-bash
-Copy
-Edit
-├── Logging-Middleware/         # Standalone logging utility
-└── Frontend-Test-Submission/   # Main app (React + Vite)
-⚙️ Getting Started
-Prerequisites
-Ensure you have the following installed:
+- **Frontend Framework**: [React](https://react.dev/) + [Vite](https://vitejs.dev/)
+- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Styling & UI**: [Material UI](https://mui.com/)
+- **Routing**: [React Router](https://reactrouter.com/)
+- **Logging**: [Axios](https://axios-http.com/) for sending logs
+- **Unique ID Generation**: [`nanoid`](https://github.com/ai/nanoid)
+- **Date Utilities**: [`date-fns`](https://date-fns.org/)
+- **Data Storage**: `localStorage` (acts as a mock database)
 
-Node.js (v18+ recommended)
+---
 
-npm (comes with Node)
+## 📂 Project Structure
 
-Installation
-bash
-Copy
-Edit
-git clone https://github.com/Utkrisht2
-cd your-repo-folder/Frontend-Test-Submission
+📁 root/
+├── 📁 Logging-Middleware/
+│ └── logger.ts # Custom reusable logging middleware
+├── 📁 Frontend-Test-Submission/
+│ ├── 📁 src/
+│ │ ├── components/ # UI components
+│ │ ├── pages/ # Main app pages
+│ │ ├── services/ # URL and logging logic
+│ │ ├── App.tsx # Routes and redirection handler
+│ │ └── main.tsx # Entry point
+│ └── package.json
+└── README.md
+
+## 🧪 Getting Started
+
+### ✅ Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18 or later)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+
+### 🧰 Installation
+
+```bash
+git clone https://github.com/Utkrisht2/22131012585.git
+cd 22131012585/Frontend-Test-Submission
 npm install
-Development Server
+
+▶️ Run the Application
 bash
 Copy
 Edit
 npm run dev
-Open your browser at http://localhost:3000 to use the app.
+Visit http://localhost:3000 in your browser to start using the app.
 
-📷 Capturing Mobile Screenshots
-Open your browser (Chrome/Firefox/Edge).
+📱 How to Capture Mobile Screenshots
+Open the app in your browser.
 
-Press F12 to open DevTools.
+Press F12 or Ctrl+Shift+I (DevTools).
 
-Click the device toolbar icon (📱).
+Click the device icon (top-left in DevTools).
 
-Choose a device (e.g., iPhone 13).
+Select a device (e.g., iPhone 12).
 
 Refresh and take a screenshot.
 
-🔍 How It Works
-📦 URL Management
-The urlService.ts file mimics a backend and handles:
+⚙️ Core Logic Overview
+🔄 Shortening Flow
+On submission, form input is validated.
 
-Generating shortcodes (or validating custom ones).
+If a shortcode is not supplied, one is generated using nanoid.
 
-Saving URL metadata with creation and expiry timestamps.
+A ShortenedUrl object is created and stored in localStorage.
 
-Retrieving and updating localStorage-stored URLs.
+Each short URL is associated with its:
 
-🔁 Redirection Logic
-A dynamic route (/:shortcode) is handled via RedirectHandler.
+Original URL
 
-It:
+Click history
 
-Resolves the shortcode to a long URL.
+Expiration timestamp
 
-Tracks click data (time, referrer, geo mock).
+🔁 Redirection Handler
+Defined using a wildcard route (/:shortcode).
 
-Redirects using window.location.replace().
+Fetches the original URL using urlService.
 
-🧾 Logging System
-The logging middleware captures app events.
+Logs the access with:
 
-Sends structured log entries to a mock remote endpoint using Axios.
+Timestamp
 
-Useful for tracking usage, debugging, and audit trails.
+Referrer (source)
 
-🛠️ Development Notes
-All logic is contained client-side.
+Mocked geolocation
 
-No real geolocation or backend API involved—click location is mocked.
+Redirects the user via window.location.replace().
 
-Link stats persist only in the user's browser (localStorage).
+📋 Logging Middleware
+The application includes a reusable logger:
+
+Captures events like URL creation, redirection, and form errors.
+
+Sends log data using Axios to a remote test server.
+
+Can be extended to include user/device metadata, event tags, and more.
+
+ts
+Copy
+Edit
+// Example log
+logEvent("SHORT_URL_CREATED", {
+  shortcode: "abcd12",
+  url: "https://example.com",
+  timestamp: new Date().toISOString()
+});
